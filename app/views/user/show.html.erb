@@ -1,0 +1,18 @@
+<h1><%="#{@user.first_name} #{@user.last_name}"%></h1>
+<p>
+  Âge : <%=@user.age%><br>
+  Email : <%=@user.email%><br>
+  Ville : <%=@user.city.name%><br>
+  Description : <%=@user.description%><br>
+  Profil crée le <%=@user.created_at.strftime('%d/%m/%y')%>
+</p>
+<p> 
+  <h3>Ses potins :</h3> 
+  <% @user.gossips.each do |gossip| %>
+    <div class="container my-2 px-0">
+      <%= link_to gossip.title, gossips_show_path(gossip.id)%><br>
+      <%=gossip.content%><br>
+      Créé le <%=gossip.created_at.strftime('%d/%m/%y')%><br>
+    </div>
+  <%end%>
+</p>

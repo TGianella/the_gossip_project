@@ -1,0 +1,10 @@
+<h1>Gossip n°<%=@gossip.id%></h1>
+<p> 
+  Auteur : <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}", user_show_path(@gossip.user.id) %>
+</p>
+<br>
+<h2><%= @gossip.title %></h2>
+<p><%= @gossip.content %><br>
+  Posté le <%= @gossip.created_at.strftime('%d/%m/%y') %>
+</p>
+

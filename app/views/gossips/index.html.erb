@@ -1,0 +1,19 @@
+<h1 class="my-3">Tous les gossips !</h1>
+<%@gossips.in_groups_of(4) do |group|%>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 text-center mt-3">
+    <%group.each do |gossip|%>
+      <%unless gossip.nil?%>
+        <div class="col py-1">
+          <div class="card" >
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">Selon <%=gossip.user.first_name%>...</h6>
+              <p class="card-text"><%= gossip.content %></p>
+              <%= link_to "Page du potin", gossips_show_path(gossip.id)%>
+            </div>
+          </div>
+        </div>
+      <%end%>
+    <%end%>
+  </div>
+<%end%>
+
