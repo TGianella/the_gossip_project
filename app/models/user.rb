@@ -5,14 +5,14 @@ class User < ApplicationRecord
   has_many :gossips
   has_many :comments
   has_many :likes
-  # validates :first_name, presence: true
-  # validates :last_name, presence: true
-  # validates :description,
-  #           presence: true,
-  #           length: { maximum: 500 }
-  # validates :email,
-  #           presence: true,
-  #           uniqueness: true,
-  #           format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: 'email adress please' }
-  # validates :age, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :description,
+            presence: true,
+            length: { maximum: 500 }
+  validates :email,
+            presence: true,
+            uniqueness: true,
+            format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: 'email adress please' }
+  validates :age, presence: true
 end

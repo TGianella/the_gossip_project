@@ -1,3 +1,8 @@
+<% flash.each do |type, msg| %>
+  <div class="alert alert-success text-center" role="alert">
+    <%= msg %>
+  </div>
+<% end %>
 <h1 class="my-3">Tous les gossips !</h1>
 <%@gossips.in_groups_of(4) do |group|%>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 text-center mt-3">

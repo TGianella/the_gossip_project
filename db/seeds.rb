@@ -19,13 +19,21 @@ Like.destroy_all
               zip_code: Faker::Address.zip_code)
 end
 
+User.create(first_name: 'Anne',
+            last_name: 'Onyme',
+            age: 14,
+            description: "Salut moi c'est Anne et j'adore les potins !",
+            city: City.all.sample,
+            email: 'anne.onyme@gmail.com')
+
 10.times do |_|
-  User.create(first_name: Faker::Name.first_name,
-              last_name: Faker::Name.last_name,
-              age: rand(18..60),
-              description: Faker::Lorem.paragraph,
-              city: City.all.sample)
-  User.last.update(email: Faker::Internet.email(name: [User.last.first_name, User.last.last_name].join('.')))
+  user = User.new(first_name: Faker::Name.first_name,
+                  last_name: Faker::Name.last_name,
+                  age: rand(18..60),
+                  description: Faker::Lorem.paragraph,
+                  city: City.all.sample)
+  user.update(email: Faker::Internet.email(name: [User.last.first_name, User.last.last_name].join('.')))
+  user.save!
 end
 
 10.times do |_|
@@ -33,7 +41,7 @@ end
 end
 
 20.times do |_|
-  Gossip.create(title: Faker::Lorem.sentence,
+  Gossip.create(title: Faker::Lorem.word,
                 content: Faker::Lorem.paragraph,
                 user: User.all.sample)
   rand(1..4).times do |_i|
