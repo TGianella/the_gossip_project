@@ -1,9 +1,7 @@
-<h1>Gossip n°<%=@gossip.id%></h1>
+<h1><%= @gossip.title %></h1>
 <p> 
-  Auteur : <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}", user_show_path(@gossip.user.id) %>
+Par <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}", user_path(@gossip.user.id) %> (<%= @gossip.user.city.name %>)
 </p>
-<br>
-<h2><%= @gossip.title %></h2>
 <p><%= @gossip.content %><br>
   Posté le <%= @gossip.created_at.strftime('%d/%m/%y') %>
 </p>
