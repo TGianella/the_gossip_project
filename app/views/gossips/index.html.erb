@@ -13,7 +13,7 @@
             <div class="card-body">
               <h6 class="card-subtitle mb-2 text-muted">Selon <%=gossip.user.first_name%>...</h6>
               <p class="card-text"><%= gossip.content %></p>
-              <%= link_to "Page du potin", gossips_show_path(gossip.id)%>
+              <%= link_to "Page du potin", gossip_path(gossip.id)%>
             </div>
           </div>
         </div>

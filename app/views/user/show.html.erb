@@ -10,7 +10,7 @@
   <h3>Ses potins :</h3> 
   <% @user.gossips.each do |gossip| %>
     <div class="container my-2 px-0">
-      <%= link_to gossip.title, gossips_show_path(gossip.id)%><br>
+      <%= link_to gossip.title, gossip_path(gossip.id)%><br>
       <%=gossip.content%><br>
       Créé le <%=gossip.created_at.strftime('%d/%m/%y')%><br>
     </div>
