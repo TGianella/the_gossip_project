@@ -13,7 +13,7 @@ Par <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}",
 </p>
 <h5> Commentaires </h5>
 <ul>
-  <% @gossip.comments.each do |comment| %>
+  <% @gossip.comments.sort_by(&:created_at).each do |comment| %>
     <li><%=comment.user.first_name %> : <%=comment.content %> <%= link_to "Editer", edit_comment_path(comment.id) %> <%= link_to "Supprimer", comment_path(comment.id), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %></li>
   <% end %>
 </ul>
