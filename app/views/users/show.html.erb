@@ -2,7 +2,7 @@
 <p>
   Âge : <%=@user.age%><br>
   Email : <%=@user.email%><br>
-  Ville : <%=@user.city.name%><br>
+  Ville : <%= link_to @user.city.name, city_path(@user.city.id) %><br>
   Description : <%=@user.description%><br>
   Profil crée le <%=@user.created_at.strftime('%d/%m/%y')%>
 </p>

@@ -1,0 +1,32 @@
+<% flash.each do |type, msg| %>
+  <div class="alert alert-danger text-center" role="alert">
+    <%= msg %>
+  </div>
+<% end %>
+<h1>Edite le potin</h1>
+
+<% @gossip.errors do |error| %>
+  <%= error %>
+<% end %>
+
+<%= form_with model: @gossip do |form|%>
+  <div class="mb-3">
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+    <% @gossip.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :content %><br>
+    <%= form.text_area :content %>
+    <% @gossip.errors.full_messages_for(:content).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

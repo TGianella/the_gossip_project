@@ -1,3 +1,8 @@
+<% flash.each do |type, msg| %>
+  <div class="alert alert-success text-center" role="alert">
+    <%= msg %>
+  </div>
+<% end %>
 <h1><%= @gossip.title %></h1>
 <p> 
 Par <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}", user_path(@gossip.user.id) %> (<%= @gossip.user.city.name %>)
@@ -5,4 +10,6 @@ Par <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}", user_pat
 <p><%= @gossip.content %><br>
   Posté le <%= @gossip.created_at.strftime('%d/%m/%y') %>
 </p>
+<%= link_to "Editer le potin", edit_gossip_path %>
+<p class="text-danger"><%= link_to "Supprimer le potin", gossip_path(@gossip), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></p>
 

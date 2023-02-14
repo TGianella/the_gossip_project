@@ -1,0 +1,8 @@
+<h1><%= @city.name %></h1>
+<p><%= @city.users.count %> utilisateur.ice(s)</p>
+<p> Liste des potins :</p>
+<div class="list-group">
+  <% @city.gossips.each do |gossip| %>
+    <a href="<%= gossip_path(gossip.id) %>"class="list-group-item list-group-item-action"><strong><%= gossip.title %></strong> <%= gossip.user.first_name %></a>
+  <% end %>
+</div>
