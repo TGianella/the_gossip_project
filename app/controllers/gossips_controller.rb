@@ -5,6 +5,7 @@ class GossipsController < ApplicationController
 
   def show
     @gossip = Gossip.find(params['id'])
+    @comment = Comment.new(gossip: @gossip)
   end
 
   def new
@@ -17,11 +18,9 @@ class GossipsController < ApplicationController
 
     if @gossip.save
       flash[:success] = 'Votre potin a bien été ajouté'
-      puts 'Gossip created !'
       redirect_to action: 'index'
     else
       flash[:error] = "Votre potin n'a pas pu être créé"
-      puts 'Gossip not created !'
       render :new, status: :unprocessable_entity
     end
   end
@@ -35,18 +34,14 @@ class GossipsController < ApplicationController
 
     if @gossip.update(gossip_params)
       flash[:success] = 'Le potin a bien été mis à jour'
-      puts 'Gossip updated !'
       redirect_to @gossip
     else
       flash[:error] = "Le potin n'a pas pu être mis à jour"
-      puts 'Gossip not updated'
-      p @gossip.errors
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    puts 'REACHED METHOD DESTROY'
     @gossip = Gossip.find(params[:id])
     @gossip.destroy
     flash[:success] = 'Le potin a bien été supprimé'

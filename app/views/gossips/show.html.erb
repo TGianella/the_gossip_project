@@ -5,11 +5,32 @@
 <% end %>
 <h1><%= @gossip.title %></h1>
 <p> 
-Par <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}", user_path(@gossip.user.id) %> (<%= @gossip.user.city.name %>)
+Par <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}",
+  user_path(@gossip.user.id) %> (<%= @gossip.user.city.name %>)
 </p>
 <p><%= @gossip.content %><br>
   Posté le <%= @gossip.created_at.strftime('%d/%m/%y') %>
 </p>
-<%= link_to "Editer le potin", edit_gossip_path %>
+<h5> Commentaires </h5>
+<ul>
+  <% @gossip.comments.each do |comment| %>
+    <li><%=comment.user.first_name %> : <%=comment.content %> <%= link_to "Editer", edit_comment_path(comment.id) %> <%= link_to "Supprimer", comment_path(comment.id), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %></li>
+  <% end %>
+</ul>
+
+<%= form_with model: @comment do |form|%>
+  <div class="mb-3">
+    <%= form.label 'Commenter' %><br>
+    <%= form.text_area :content %>
+    <% @comment.errors.full_messages_for(:content).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+<p><%= link_to "Editer le potin", edit_gossip_path %></p>
 <p class="text-danger"><%= link_to "Supprimer le potin", gossip_path(@gossip), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></p>
 
