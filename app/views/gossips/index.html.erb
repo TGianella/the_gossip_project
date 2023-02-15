@@ -19,8 +19,16 @@
                 <% end %>
               </div>
               <span>
+                <% if logged_in? %>
+                  <% if gossip.liked?(current_user) %>
+                    <%= button_to "Unlike", unlike_path(gossip), method: "delete" %>
+                  <% else %>
+                    <%= button_to "Like", like_path(gossip), method: "put" %>
+                  <% end %>
+                <% end %>
                 <%= link_to "Page du potin", gossip_path(gossip.id)%>
                 <%= gossip.comments.count %> commentaire(s) 
+                <%= gossip.likes.count %> like(s)
               </span>
             </div>
           </div>

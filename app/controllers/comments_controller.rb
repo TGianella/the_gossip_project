@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    @comment.user = User.first
+    @comment.user = current_user
     @comment.gossip = Gossip.find(params[:id])
 
     if @comment.save

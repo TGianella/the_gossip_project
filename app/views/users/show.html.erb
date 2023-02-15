@@ -4,7 +4,7 @@
   Email : <%=@user.email%><br>
   Ville : <%= link_to @user.city.name, city_path(@user.city.id) %><br>
   Description : <%=@user.description%><br>
-  Profil crée le <%=@user.created_at.strftime('%d/%m/%y')%>
+  Profil créé le <%=@user.created_at.strftime('%d/%m/%y')%>
 </p>
 <p> 
   <h3>Ses potins :</h3> 
@@ -12,7 +12,18 @@
     <div class="container my-2 px-0">
       <%= link_to gossip.title, gossip_path(gossip.id)%><br>
       <%=gossip.content%><br>
-      Créé le <%=gossip.created_at.strftime('%d/%m/%y')%><br>
+      <span>
+        Créé le <%=gossip.created_at.strftime('%d/%m/%y')%>
+        - <%= gossip.comments.count %> commentaire(s)
+        - <%= gossip.likes.count %> like(s) 
+        <% if logged_in? %>
+          <% if gossip.liked?(current_user) %>
+            <%= button_to "Unlike", unlike_path(gossip), method: "delete", form: {style: 'display:inline-block;'} %>
+          <% else %>
+            <%= button_to "Like", like_path(gossip), method: "put", form: {style: 'display:inline-block;'} %>
+          <% end %>
+        <% end %>
+      </span>
     </div>
   <%end%>
 </p>

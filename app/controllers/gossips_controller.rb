@@ -29,26 +29,54 @@ class GossipsController < ApplicationController
 
   def edit
     @gossip = Gossip.find(params['id'])
+
+    return if user_allowed_to_edit?
+
+    flash[:error] = "Seul l'auteur du potin peut le modifier"
+    render :show
   end
 
   def update
     @gossip = Gossip.find(params[:id])
-    p @gossip.tags
 
-    if @gossip.update(gossip_params)
-      flash[:success] = 'Le potin a bien été mis à jour'
-      redirect_to @gossip
+    if user_allowed_to_edit?
+      if @gossip.update(gossip_params)
+        flash[:success] = 'Le potin a bien été mis à jour'
+        redirect_to @gossip
+      else
+        flash[:error] = "Le potin n'a pas pu être mis à jour"
+        render :edit, status: :unprocessable_entity
+      end
     else
-      flash[:error] = "Le potin n'a pas pu être mis à jour"
-      render :edit, status: :unprocessable_entity
+      flash[:error] = "Seul l'auteur du potin peut le modifier"
+      render :show
     end
   end
 
   def destroy
     @gossip = Gossip.find(params[:id])
-    @gossip.destroy
-    flash[:success] = 'Le potin a bien été supprimé'
-    redirect_to action: 'index'
+
+    if user_allowed_to_edit?
+      @gossip.destroy
+      flash[:success] = 'Le potin a bien été supprimé'
+      redirect_to action: 'index'
+    else
+      flash[:error] = "Seul l'auteur du potin peut le modifier"
+      render :show
+    end
+  end
+
+  def like
+    @gossip = Gossip.find(params[:id])
+    Like.create(user_id: current_user.id, gossip_id: @gossip.id)
+    redirect_back fallback_location: root_path
+  end
+
+  def unlike
+    @gossip = Gossip.find(params[:id])
+    @like = @gossip.likes.find_by(user: current_user)
+    @like.destroy
+    redirect_back fallback_location: root_path
   end
 
   private
@@ -62,5 +90,9 @@ class GossipsController < ApplicationController
 
     flash[:danger] = 'Please log in'
     redirect_to new_session_path
+  end
+
+  def user_allowed_to_edit?
+    current_user == @gossip.user
   end
 end

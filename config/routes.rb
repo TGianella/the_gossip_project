@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :tags, only: [:show]
   resources :sessions, only: %i[new create destroy]
   delete '/logout', to: 'sessions#destroy'
+  put '/gossip/:id/like', to: 'gossips#like', as: 'like'
+  delete '/gossip/:id/unlike', to: 'gossips#unlike', as: 'unlike'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

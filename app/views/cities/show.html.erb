@@ -3,6 +3,11 @@
 <p> Liste des potins :</p>
 <div class="list-group">
   <% @city.gossips.each do |gossip| %>
-    <a href="<%= gossip_path(gossip.id) %>"class="list-group-item list-group-item-action"><strong><%= gossip.title %></strong> <%= gossip.user.first_name %></a>
+    <a href="<%= gossip_path(gossip.id) %>"class="list-group-item list-group-item-action">
+      <strong><%= gossip.title %></strong> 
+      <%= gossip.user.first_name %> 
+      <%= gossip.comments.count %> commentaire(s) 
+      <%= gossip.likes.count %> like(s)
+    </a>
   <% end %>
 </div>

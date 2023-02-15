@@ -7,4 +7,8 @@ class Gossip < ApplicationRecord
             presence: true,
             length: { maximum: 20 }
   validates :content, presence: true
+
+  def liked?(user)
+    !!likes.find { |like| like.user_id == user.id }
+  end
 end
