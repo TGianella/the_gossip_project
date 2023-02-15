@@ -13,6 +13,11 @@
             <div class="card-body">
               <h6 class="card-subtitle mb-2 text-muted">Selon <%=gossip.user.first_name%>...</h6>
               <p class="card-text"><%= gossip.content %></p>
+              <div>
+                <% gossip.tags.each do |tag| %>
+                  <%= link_to tag.title, tag %>
+                <% end %>
+              </div>
               <span>
                 <%= link_to "Page du potin", gossip_path(gossip.id)%>
                 <%= gossip.comments.count %> commentaire(s) 

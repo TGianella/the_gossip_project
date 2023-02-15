@@ -4,6 +4,10 @@
   </div>
 <% end %>
 <h1><%= @gossip.title %></h1>
+<p class="mb-1">
+  <% @gossip.tags.sort_by(&:title).each do |tag| %>
+    <%= link_to tag.title, tag %>
+  <% end %>
 <p> 
 Par <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}",
   user_path(@gossip.user.id) %> (<%= @gossip.user.city.name %>)

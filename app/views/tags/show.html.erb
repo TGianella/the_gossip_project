@@ -1,0 +1,8 @@
+<h1><%= @tag.title %></h1>
+<p><%= @tag.gossips.count %> potin(s)</p>
+<p> Liste des potins :</p>
+<div class="list-group">
+  <% @tag.gossips.each do |gossip| %>
+    <a href="<%= gossip_path(gossip.id) %>"class="list-group-item list-group-item-action"><strong><%= gossip.title %></strong> <%= gossip.user.first_name %></a>
+  <% end %>
+</div>

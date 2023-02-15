@@ -31,6 +31,7 @@ class GossipsController < ApplicationController
 
   def update
     @gossip = Gossip.find(params[:id])
+    p @gossip.tags
 
     if @gossip.update(gossip_params)
       flash[:success] = 'Le potin a bien été mis à jour'
@@ -51,6 +52,6 @@ class GossipsController < ApplicationController
   private
 
   def gossip_params
-    params.require(:gossip).permit(:title, :content)
+    params.require(:gossip).permit(:title, :content, tag_ids: [])
   end
 end

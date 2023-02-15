@@ -22,6 +22,15 @@
     <% end %>
   </div>
 
+  <div class="mb-3">
+    <%= form.label :tag %><br>
+    <%= form.collection_check_boxes :tag_ids, Tag.order(:title), :id, :title, {}, { :multiple => true } %>
+    <% @gossip.errors.full_messages_for(:tag).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+
   <div>
     <%= form.submit %>
   </div>
