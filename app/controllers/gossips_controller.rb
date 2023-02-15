@@ -1,4 +1,6 @@
 class GossipsController < ApplicationController
+  before_action :authenticate_user, only: %i[new create]
+
   def index
     @gossips = Gossip.all.sort_by(&:created_at)
   end
@@ -53,5 +55,12 @@ class GossipsController < ApplicationController
 
   def gossip_params
     params.require(:gossip).permit(:title, :content, tag_ids: [])
+  end
+
+  def authenticate_user
+    return if current_user
+
+    flash[:danger] = 'Please log in'
+    redirect_to new_session_path
   end
 end
