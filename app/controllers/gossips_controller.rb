@@ -1,6 +1,6 @@
 class GossipsController < ApplicationController
   def index
-    @gossips = Gossip.all
+    @gossips = Gossip.all.sort_by(&:created_at)
   end
 
   def show
@@ -14,7 +14,7 @@ class GossipsController < ApplicationController
 
   def create
     @gossip = Gossip.new(gossip_params)
-    @gossip.user = User.first
+    @gossip.user = current_user
 
     if @gossip.save
       flash[:success] = 'Votre potin a bien été ajouté'

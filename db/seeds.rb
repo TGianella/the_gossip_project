@@ -24,14 +24,16 @@ User.create(first_name: 'Anne',
             age: 14,
             description: "Salut moi c'est Anne et j'adore les potins !",
             city: City.all.sample,
-            email: 'anne.onyme@gmail.com')
+            email: 'anne.onyme@gmail.com',
+            password: 'foobar')
 
 10.times do |_|
   user = User.new(first_name: Faker::Name.first_name,
                   last_name: Faker::Name.last_name,
                   age: rand(18..60),
                   description: Faker::Lorem.paragraph,
-                  city: City.all.sample)
+                  city: City.all.sample,
+                  password: Faker::Internet.password(min_length: 6, max_length: 10))
   user.update(email: Faker::Internet.email(name: [User.last.first_name, User.last.last_name].join('.')))
   user.save!
 end

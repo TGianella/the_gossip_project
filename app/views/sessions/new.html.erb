@@ -1,0 +1,13 @@
+<h1>Se connecter</h1>
+<%= form_with url: sessions_path, scope: :session, local: true do |form| %>
+
+  <%= form.label :email %>
+  <%= form.email_field :email, class: 'form-control' %>
+
+  <%= form.label :password %>
+  <%= form.password_field :password, class: 'form-control' %>
+
+  <%= form.submit "Log in", class: "mt-2 btn btn-primary" %>
+<% end %>
+
+<%= link_to "Créer un compte", new_user_path %>

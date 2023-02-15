@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'gossips#index'
   get 'welcome/:first_name', to: 'welcome#user'
   get '/team', to: 'static#team'
   get '/contact', to: 'static#contact'
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
   get 'gossips/:gossip_id/comment/new', to: 'comments#new', as: 'new_comment'
   post 'gossips/:id/comments', to: 'comments#create', as: 'comments'
   resources :tags, only: [:show]
+  resources :sessions, only: %i[new create destroy]
+  delete '/logout', to: 'sessions#destroy'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
