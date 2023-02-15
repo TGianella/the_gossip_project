@@ -35,6 +35,8 @@ Par <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}",
     <%= form.submit %>
   </div>
 <% end %>
-<p><%= link_to "Editer le potin", edit_gossip_path %></p>
-<p class="text-danger"><%= link_to "Supprimer le potin", gossip_path(@gossip), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></p>
+<% if current_user == @gossip.user %>
+  <p><%= link_to "Editer le potin", edit_gossip_path %></p>
+  <p class="text-danger"><%= link_to "Supprimer le potin", gossip_path(@gossip), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></p>
+<% end %>
 
