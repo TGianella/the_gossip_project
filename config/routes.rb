@@ -3,12 +3,14 @@ Rails.application.routes.draw do
   get 'welcome/:first_name', to: 'welcome#user'
   get '/team', to: 'static#team'
   get '/contact', to: 'static#contact'
-  resources :gossips
+  resources :gossips do
+    resources :comments
+  end
+  resources :comments, except: :create do
+    resources :comments
+  end
   resources :users
   resources :cities, only: [:show]
-  resources :comments, except: %i[index show new create]
-  get 'gossips/:gossip_id/comment/new', to: 'comments#new', as: 'new_comment'
-  post 'gossips/:id/comments', to: 'comments#create', as: 'comments'
   resources :tags, only: [:show]
   resources :sessions, only: %i[new create destroy]
   delete '/logout', to: 'sessions#destroy'

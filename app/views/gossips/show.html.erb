@@ -1,4 +1,5 @@
 <h1><%= @gossip.title %></h1>
+
 <p class="mb-1">
   <% @gossip.tags.sort_by(&:title).each do |tag| %>
     <%= link_to tag.title, tag %>
@@ -9,26 +10,22 @@
 </p>
 <div class="my-2"><%= @gossip.content %></div>
 <div class="my-2"><small>  Posté le <%= @gossip.created_at.strftime('%d/%m/%y') %> à <%= @gossip.created_at.strftime('%k:%M') %></small></div>
+
 <h5> Commentaires </h5>
+
 <% if @gossip.comments.empty? %>
   <div> Aucun commentaire... pour le moment !</div>
 <% end %>
+
 <ul>
-  <% @gossip.comments.sort_by(&:created_at).each do |comment| %>
-    <li>
-    <%=comment.user.first_name %> : <%=comment.content %> 
-    <% if current_user == comment.user %>
-      <%= link_to "Editer", edit_comment_path(comment.id) %> 
-      <%= link_to "Supprimer", comment_path(comment.id), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-    <% end %>
-    </li>
-  <% end %>
+  <%= render @gossip.comments %>
 </ul>
+
 <% if logged_in? %>
-  <%= form_with model: @comment do |form|%>
+  <%= form_for [@gossip, Comment.new] do |form|%>
     <div class="mb-3">
       <%= form.label 'Commenter' %><br>
-      <%= form.text_area :content %>
+      <%= form.text_area :content, placeholder: "Ajoutez un commentaire" %>
       <% @comment.errors.full_messages_for(:content).each do |message| %>
         <div><%= message %></div>
       <% end %>
@@ -41,6 +38,7 @@
 <% end %>
 
 <h5 class="mt-4">Likes</h5>
+
 <% unless @gossip.likes.empty? %>
   <span>
     Liké par :

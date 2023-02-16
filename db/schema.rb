@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_16_084328) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_16_163252) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,12 +24,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_084328) do
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.bigint "user_id"
-    t.bigint "gossip_id"
-    t.bigint "parent_comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["gossip_id"], name: "index_comments_on_gossip_id"
-    t.index ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -91,5 +90,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_084328) do
     t.index ["city_id"], name: "index_users_on_city_id"
   end
 
-  add_foreign_key "comments", "comments", column: "parent_comment_id"
 end

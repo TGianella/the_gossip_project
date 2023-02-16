@@ -61,15 +61,13 @@ end
 end
 
 20.times do |_|
-  Comment.create(user: User.all.sample,
-                 gossip: Gossip.all.sample,
-                 content: Faker::Lorem.sentence)
+  Gossip.all.sample.comments.create(user: User.all.sample,
+                                    content: Faker::Lorem.sentence)
 end
 
 20.times do |_|
-  Comment.create(user: User.all.sample,
-                 parent_comment: Comment.all.sample,
-                 content: Faker::Lorem.sentence)
+  Comment.all.sample.comments.create(user: User.all.sample,
+                                     content: Faker::Lorem.sentence)
 end
 
 10.times do |_|

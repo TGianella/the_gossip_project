@@ -1,0 +1,37 @@
+<li>
+  <div class="overflow-scroll text-wrap">
+    <%= comment.content %>
+  </div>
+  <strong><%= comment.user.first_name %></strong>
+  <small>Le <%= comment.created_at.strftime('%d/%m/%y à %k:%M') %></small>
+  <% if logged_in? %>
+    <% if current_user == comment.user %>
+      <%= link_to "Editer", edit_comment_path(comment.id) %> 
+      <%= link_to "Supprimer", comment_path(comment.id), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+    <% end %>
+    <span class="dropdown">
+      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+        Commenter
+      </button>
+      <%= form_for [comment, Comment.new], :html => {:class => "dropdown-menu"} do |form|%>
+        <div class="mb-3">
+          <%= form.label 'Commenter' %><br>
+          <%= form.text_area :content, placeholder: "Ajoutez un commentaire" %>
+          <% @comment.errors.full_messages_for(:content).each do |message| %>
+            <div><%= message %></div>
+          <% end %>
+        </div>
+        <div>
+          <%= form.submit "Commenter" %>
+        </div>
+      <% end %>
+    </span>
+  <% end %>
+
+    
+
+  <ul>
+    <%= render comment.comments %>
+  </ul>
+</li>
+
