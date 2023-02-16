@@ -7,6 +7,11 @@
   <%= form.label :password %>
   <%= form.password_field :password, class: 'form-control' %>
 
+  <div>
+    <%= form.label 'Se souvenir de moi' %>
+    <%= form.check_box :remember %>
+  </div>
+
   <%= form.submit "Log in", class: "mt-2 btn btn-primary" %>
 <% end %>
 

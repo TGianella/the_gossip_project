@@ -3,11 +3,18 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:session][:email])
+    puts params[:session][:email]
 
     if user && user.authenticate(params[:session][:password])
       puts 'LOGGED IN'
       log_in(user)
-      remember(user)
+      cookies.each do |cookie|
+        p cookie
+      end
+      if params[:session][:rememeber] == 1
+        puts "REMEMBERING USER BECAUSE #{params[:session][:remember]}"
+        remember(user)
+      end
       flash[:success] = 'Connexion réussie !'
       redirect_to root_path
     else

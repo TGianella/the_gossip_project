@@ -26,6 +26,7 @@ module SessionsHelper
   end
 
   def remember(user)
+    puts 'REMEMBERING USER FROM THE HELPER'
     remember_token = SecureRandom.urlsafe_base64
     user.remember(remember_token)
     cookies.permanent[:user_id] = user.id
