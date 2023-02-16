@@ -12,10 +12,12 @@
   Par <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}", user_path(@gossip.user.id) %> 
   (<%= link_to @gossip.user.city.name, city_path(@gossip.user.city.id) %>)
 </p>
-<p><%= @gossip.content %><br>
-  Posté le <%= @gossip.created_at.strftime('%d/%m/%y') %>
-</p>
+<div class="my-2"><%= @gossip.content %></div>
+<div class="my-2"><small>  Posté le <%= @gossip.created_at.strftime('%d/%m/%y') %> à <%= @gossip.created_at.strftime('%k:%M') %></small></div>
 <h5> Commentaires </h5>
+<% if @gossip.comments.empty? %>
+  <div> Aucun commentaire... pour le moment !</div>
+<% end %>
 <ul>
   <% @gossip.comments.sort_by(&:created_at).each do |comment| %>
     <li>
@@ -38,23 +40,25 @@
     </div>
 
     <div>
-      <%= form.submit %>
+      <%= form.submit "Commenter" %>
     </div>
   <% end %>
 <% end %>
 
 <h5 class="mt-4">Likes</h5>
-<span>
-  Liked by :
-  <%= @gossip.likes.sort_by(&:created_at).map { |like| like.user.first_name }.join(' , ') %>
-</span>
+<% unless @gossip.likes.empty? %>
+  <span>
+    Liké par :
+    <%= @gossip.likes.sort_by(&:created_at).map { |like| like.user.first_name }.join(' , ') %>
+  </span>
+<% end %>
 
 <div class="mt-2">
   <% if logged_in? %>
     <% if @gossip.liked?(current_user) %>
-      <%= button_to "Unlike", unlike_path(@gossip), method: "delete" %>
+      <%= button_to "Je n'aime plus", unlike_path(@gossip), method: "delete", class: "btn btn-danger" %>
     <% else %>
-      <%= button_to "Like", like_path(@gossip), method: "put" %>
+      <%= button_to "J'aime", like_path(@gossip), method: "put", class: "btn btn-primary" %>
     <% end %>
   <% end %>
 </div>

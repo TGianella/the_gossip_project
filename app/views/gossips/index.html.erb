@@ -3,7 +3,7 @@
     <%= msg %>
   </div>
 <% end %>
-<h1 class="my-3">Tous les gossips !</h1>
+<h1 class="my-3">Tous les potins !</h1>
 <% if @gossips.empty? %>
   <div>
     Il semblerait qu'il n'y ait aucun potin pour le moment... Connecte-toi vite pour bitcher sur tes amis !
@@ -26,9 +26,9 @@
               <span>
                 <% if logged_in? %>
                   <% if gossip.liked?(current_user) %>
-                    <%= button_to "Unlike", unlike_path(gossip), method: "delete" %>
+                    <%= button_to "Unlike", unlike_path(gossip), method: "delete", class: "btn btn-danger" %>
                   <% else %>
-                    <%= button_to "Like", like_path(gossip), method: "put" %>
+                    <%= button_to "Like", like_path(gossip), method: "put", class: "btn btn-primary" %>
                   <% end %>
                 <% end %>
                 <%= link_to "Page du potin", gossip_path(gossip.id)%>
