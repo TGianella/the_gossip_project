@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     if user.save
       log_in(user)
-      remember(user)
+      remember(user) if params[:user][:remember] == '1'
       flash[:success] = 'Votre compte a bien été créé'
       redirect_to root_path
     else

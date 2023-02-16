@@ -8,13 +8,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       puts 'LOGGED IN'
       log_in(user)
-      cookies.each do |cookie|
-        p cookie
-      end
-      if params[:session][:rememeber] == 1
-        puts "REMEMBERING USER BECAUSE #{params[:session][:remember]}"
-        remember(user)
-      end
+      remember(user) if params[:session][:remember] == '1'
       flash[:success] = 'Connexion réussie !'
       redirect_to root_path
     else
