@@ -1,8 +1,3 @@
-<% flash.each do |type, msg| %>
-  <div class="alert alert-success text-center" role="alert">
-    <%= msg %>
-  </div>
-<% end %>
 <h1><%= @gossip.title %></h1>
 <p class="mb-1">
   <% @gossip.tags.sort_by(&:title).each do |tag| %>

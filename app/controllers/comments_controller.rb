@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
       redirect_to @comment.gossip
     else
       flash[:error] = "Votre commentaire n'a pas pu être créé"
-      render :new, status: :unprocessable_entity
+      redirect_back fallback_location: root_path
     end
   end
 
