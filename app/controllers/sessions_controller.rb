@@ -2,12 +2,12 @@ class SessionsController < ApplicationController
   def new; end
 
   def create
-    @user = User.find_by(email: params[:session][:email])
-    @user.authenticate(params[:session][:password])
+    user = User.find_by(email: params[:session][:email])
 
-    if @user && @user.authenticate(params[:session][:password])
+    if user && user.authenticate(params[:session][:password])
       puts 'LOGGED IN'
-      session[:user_id] = @user.id
+      log_in(user)
+      remember(user)
       flash[:success] = 'Connexion réussie !'
       redirect_to root_path
     else
@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
 
   def destroy
     puts 'DESTROYING SESSION'
-    session.delete(:user_id)
+    log_out(current_user)
     redirect_to root_path
   end
 end
