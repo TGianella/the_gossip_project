@@ -1,13 +1,16 @@
 <h1><%= @tag.title %></h1>
-<p><%= @tag.gossips.count %> potin(s)</p>
-<p> Liste des potins :</p>
-<div class="list-group">
-  <% @tag.gossips.each do |gossip| %>
-    <a href="<%= gossip_path(gossip.id) %>"class="list-group-item list-group-item-action">
-      <strong><%= gossip.title %></strong> 
-      <%= gossip.user.first_name %> 
-      <%= gossip.comments.count %> commentaire(s) 
-      <%= gossip.likes.count %> like(s)
-    </a>
-  <% end %>
+<div class="d-flex flex-column w-75">
+  <h5 class='my-4 text-center'><%= @tag.gossips.count %> potin(s)</h5>
+  <div class="list-group">
+    <% @tag.gossips.each do |gossip| %>
+      <a href="<%= gossip_path(gossip.id) %>" class="list-group-item list-group-item-action d-flex text-nowrap">
+        <span class="flex-grow-1 overflow-scroll">
+          <%= gossip.user.first_name %> ·
+          <strong><%= gossip.title %></strong> 
+        </span>
+        <span class="px-2"><%= gossip.comments.count %> <i class="fa-solid fa-comments"></i></span>
+        <span class="px-2"><%= gossip.likes.count %> <i class="fa-solid fa-thumbs-up"></i></span>
+      </a>
+    <% end %>
+  </div>
 </div>
