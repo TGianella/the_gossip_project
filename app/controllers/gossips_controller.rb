@@ -66,19 +66,6 @@ class GossipsController < ApplicationController
     end
   end
 
-  def like
-    @gossip = Gossip.find(params[:id])
-    Like.create(user_id: current_user.id, gossip_id: @gossip.id)
-    redirect_back fallback_location: root_path
-  end
-
-  def unlike
-    @gossip = Gossip.find(params[:id])
-    @like = @gossip.likes.find_by(user: current_user)
-    @like.destroy
-    redirect_back fallback_location: root_path
-  end
-
   private
 
   def gossip_params

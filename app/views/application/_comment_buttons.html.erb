@@ -1,0 +1,11 @@
+<% if logged_in? %>
+  <%= button_to object, method: "get", class: "btn btn-sm btn-primary" do %>
+    <i class="fa-solid fa-comments"></i>
+    <%= object.comments.count %>
+  <% end %>
+<% else %>
+  <%= button_to object, method: "get", class: "btn btn-sm btn-secondary" do %>
+    <i class="fa-solid fa-comments"></i>
+    <%= object.comments.count %>
+  <% end %>
+<% end %>

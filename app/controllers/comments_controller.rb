@@ -49,7 +49,6 @@ class CommentsController < ApplicationController
   end
 
   def find_commentable
-    p params
     @commentable = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
     @commentable = Gossip.find_by_id(params[:gossip_id]) if params[:gossip_id]
   end

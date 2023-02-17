@@ -5,17 +5,23 @@ Rails.application.routes.draw do
   get '/contact', to: 'static#contact'
   resources :gossips do
     resources :comments
+    resources :likes, only: %i[new create destroy]
   end
   resources :comments, except: :create do
     resources :comments
+    resources :likes, only: %i[new create destroy]
   end
-  resources :users
-  resources :cities, only: [:show]
-  resources :tags, only: [:show]
+  resources :users do
+    resources :likes, only: %i[new create destroy]
+  end
+  resources :cities, only: [:show] do
+    resources :likes, only: %i[new create destroy]
+  end
+  resources :tags, only: [:show] do
+    resources :likes, only: %i[new create destroy]
+  end
   resources :sessions, only: %i[new create destroy]
   delete '/logout', to: 'sessions#destroy'
-  put '/gossip/:id/like', to: 'gossips#like', as: 'like'
-  delete '/gossip/:id/unlike', to: 'gossips#unlike', as: 'unlike'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

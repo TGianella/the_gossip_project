@@ -1,0 +1,21 @@
+<% if logged_in? %>
+  <% if object.liked?(current_user) %>
+    <%= button_to self.send("#{delete_path}", object, object.likes.find_by(user: current_user)), method: :delete, class: "btn btn-sm btn-secondary" do %>
+      <i class="fa-solid fa-thumbs-up"></i>
+      <%= object.likes.count %> 
+    <% end %>
+  <% else %>
+    <%= button_to self.send("#{path}", object), class: "btn btn-sm btn-primary" do %>
+      <i class="fa-solid fa-thumbs-up"></i>
+      <%= object.likes.count %> 
+    <% end %>
+  <% end %>
+<% else %>
+  <%= button_to self.send("#{path}", object), class: "btn btn-sm btn-secondary", disabled: true  do %>
+    <i class="fa-solid fa-thumbs-up"></i>
+    <%= object.likes.count %> 
+  <% end %>
+<% end %>
+
+
+

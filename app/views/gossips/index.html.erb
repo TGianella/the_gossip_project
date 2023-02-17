@@ -10,26 +10,18 @@
       <%unless gossip.nil?%>
         <div class="col py-1">
           <div class="card" >
-            <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Selon <%=gossip.user.first_name%>...</h6>
-              <p class="card-text"><%= gossip.content %></p>
+            <div class="card-body pb-2">
+              <h6 class="card-subtitle mb-1 text-muted">Selon <%=gossip.user.first_name%>...</h6>
+              <p class="card-text mb-1"><%= gossip.content %></p>
+              <div class="btn-group my-1" role="group" aria-label="Like and comment">
+                <%= render partial: 'like_buttons', locals: { object: gossip, path: "gossip_likes_path", delete_path: "gossip_like_path" } %>
+                <%= render partial: 'comment_buttons', locals: { object: gossip } %>
+              </div>
               <div>
                 <% gossip.tags.each do |tag| %>
                   <%= link_to tag.title, tag %>
                 <% end %>
               </div>
-              <span>
-                <% if logged_in? %>
-                  <% if gossip.liked?(current_user) %>
-                    <%= button_to "Unlike", unlike_path(gossip), method: "delete", class: "btn btn-danger" %>
-                  <% else %>
-                    <%= button_to "Like", like_path(gossip), method: "put", class: "btn btn-primary" %>
-                  <% end %>
-                <% end %>
-                <%= link_to "Page du potin", gossip_path(gossip.id)%>
-                <%= gossip.comments.count %> commentaire(s) 
-                <%= gossip.likes.count %> like(s)
-              </span>
             </div>
           </div>
         </div>
