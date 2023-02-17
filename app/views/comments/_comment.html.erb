@@ -25,7 +25,7 @@
           <%= form.submit "Commenter" %>
         </div>
       <% end %>
-      <%= render partial: 'like_buttons', locals: { object: comment, path: 'comment_like_path' } %>
+      <%= render partial: 'like_buttons', locals: { object: comment, path: 'comment_likes_path', delete_path: 'comment_like_path' } %>
     </span>
   <% end %>
 

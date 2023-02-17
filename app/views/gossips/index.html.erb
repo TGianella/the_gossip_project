@@ -11,7 +11,7 @@
         <div class="col py-1">
           <div class="card" >
             <div class="card-body pb-2">
-              <h6 class="card-subtitle mb-1 text-muted">Selon <%=gossip.user.first_name%>...</h6>
+              <h6 class="card-subtitle mb-1 text-muted"><a href="<%= gossip_path(gossip) %>">Selon <%=gossip.user.first_name%>...</a></h6>
               <p class="card-text mb-1"><%= gossip.content %></p>
               <div class="btn-group my-1" role="group" aria-label="Like and comment">
                 <%= render partial: 'like_buttons', locals: { object: gossip, path: "gossip_likes_path", delete_path: "gossip_like_path" } %>
@@ -19,7 +19,7 @@
               </div>
               <div>
                 <% gossip.tags.each do |tag| %>
-                  <%= link_to tag.title, tag %>
+                  <%= link_to tag.title, tag, class: "link-secondary" %>
                 <% end %>
               </div>
             </div>
