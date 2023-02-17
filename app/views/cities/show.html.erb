@@ -1,13 +1,3 @@
 <h1><%= @city.name %></h1>
-<p><%= @city.users.count %> utilisateur.ice(s)</p>
-<p> Liste des potins :</p>
-<div class="list-group">
-  <% @city.gossips.each do |gossip| %>
-    <a href="<%= gossip_path(gossip.id) %>"class="list-group-item list-group-item-action">
-      <strong><%= gossip.title %></strong> 
-      <%= gossip.user.first_name %> 
-      <%= gossip.comments.count %> commentaire(s) 
-      <%= gossip.likes.count %> like(s)
-    </a>
-  <% end %>
-</div>
+<%= "#{@city.users.count > 0 ? @city.users.count : "Aucun"} utilisateur" + (@city.users.count > 1 ? "s" : '') %>
+<%= render partial: "gossip_lists", object: @city %>
