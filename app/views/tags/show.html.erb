@@ -1,6 +1,6 @@
 <h1><%= @tag.title %></h1>
 <div class="d-flex flex-column w-75">
-  <h5 class='my-4 text-center'><%= @tag.gossips.count %> potin(s)</h5>
+  <h5 class='my-4 text-center'><%= "#{@tag.gossips.count} potin" + ("s" if @tag.gossips.count > 1) %></h5>
   <div class="list-group">
     <% @tag.gossips.each do |gossip| %>
       <a href="<%= gossip_path(gossip.id) %>" class="list-group-item list-group-item-action d-flex text-nowrap">
