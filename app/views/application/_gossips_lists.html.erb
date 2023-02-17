@@ -1,7 +1,7 @@
 <div class="d-flex flex-column w-75">
-  <h5 class='my-4 text-center'><%= "#{gossip_lists.gossips.count} potin" + (gossip_lists.gossips.count > 1 ? "s" : '') %></h5>
+  <h5 class='my-4 text-center'><%= "#{gossips_lists.gossips.count} potin" + (gossips_lists.gossips.count > 1 ? "s" : '') %></h5>
   <div class="list-group">
-    <% gossip_lists.gossips.each do |gossip| %>
+    <% gossips_lists.gossips.each do |gossip| %>
       <a href="<%= gossip_path(gossip.id) %>" class="list-group-item list-group-item-action d-flex text-nowrap">
         <span class="flex-grow-1 overflow-scroll">
           <%= gossip.user.first_name %> ·
