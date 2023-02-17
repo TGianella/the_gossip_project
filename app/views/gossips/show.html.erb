@@ -1,4 +1,7 @@
-<h1><%= @gossip.title %></h1>
+<h1 class="text-center mb-3">
+  <%= @gossip.title %>
+  <%= render partial: 'like_buttons', locals: { object: @gossip, path: "gossip_likes_path", delete_path: "gossip_like_path"} %>
+</h1>
 
 <p class="mb-1">
   <% @gossip.tags.sort_by(&:title).each do |tag| %>
@@ -23,16 +26,16 @@
 
 <% if logged_in? %>
   <%= form_for [@gossip, Comment.new] do |form|%>
-    <div class="mb-3">
-      <%= form.label 'Commenter' %><br>
-      <%= form.text_area :content, placeholder: "Ajoutez un commentaire" %>
+    <div class="mb-2">
+      <h6><%= form.label 'Commenter' %></h6>
+      <%= form.text_area :content, placeholder: "Qu'en pensez-vous ?" %>
       <% @comment.errors.full_messages_for(:content).each do |message| %>
         <div><%= message %></div>
       <% end %>
     </div>
 
     <div>
-      <%= form.submit "Commenter" %>
+      <%= form.submit "Commenter", class: "btn btn-primary" %>
     </div>
   <% end %>
 <% end %>
@@ -46,9 +49,6 @@
   </span>
 <% end %>
 
-<div class="mt-2">
-  <%= render partial: 'like_buttons', locals: { object: @gossip, path: "gossip_likes_path", delete_path: "gossip_like_path"} %>
-</div>
   
 
 <% if current_user == @gossip.user %>
