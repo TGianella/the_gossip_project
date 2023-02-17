@@ -6,9 +6,8 @@ class LikesController < ApplicationController
   end
 
   def create
-    p @likeable
     @like = @likeable.likes.new(user: current_user)
-    if @like.save
+    if @like.save!
       flash[:success] = "Merci d'aimer !"
     else
       flash[:alert] = @like.errors.full_messages.join(', ')
@@ -17,13 +16,6 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    puts 'X' * 30
-    p params
-    puts 'X' * 30
-    p current_user
-    puts 'X' * 30
-    p @likeable
-
     @like = @likeable.likes.find_by(user: current_user)
     @like.destroy
     flash[:success] = "Vous n'aimez plus ce contenu !"

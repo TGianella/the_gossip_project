@@ -1,4 +1,7 @@
-<h1><%="#{@user.first_name} #{@user.last_name}"%></h1>
+<div class="container d-inline-flex align-items-center p-0">
+  <h1><%="#{@user.first_name} #{@user.last_name}"%></h1>
+  <span class="mx-3"><%= render partial: "like_buttons", locals: { object: @user, path: "user_likes_path", delete_path: "user_like_path"} %></span>
+</div>
 <p>
   Âge : <%=@user.age%><br>
   Email : <%=@user.email%><br>
@@ -12,17 +15,11 @@
     <div class="container my-2 px-0">
       <%= link_to gossip.title, gossip_path(gossip.id)%><br>
       <%=gossip.content%><br>
-      <span>
+      <span class="container d-inline-flex align-items-center p-0">
         Créé le <%=gossip.created_at.strftime('%d/%m/%y')%>
         - <%= gossip.comments.count %> commentaire(s)
         - <%= gossip.likes.count %> like(s) 
-        <% if logged_in? %>
-          <% if gossip.liked?(current_user) %>
-            <%= button_to "Unlike", unlike_path(gossip), method: "delete", form: {style: 'display:inline-block;'} %>
-          <% else %>
-            <%= button_to "Like", like_path(gossip), method: "put", form: {style: 'display:inline-block;'} %>
-          <% end %>
-        <% end %>
+        <span class="mx-3"><%= render partial: "like_buttons", locals: { object: @user, path: "user_likes_path", delete_path: "user_like_path"} %></span>
       </span>
     </div>
   <%end%>

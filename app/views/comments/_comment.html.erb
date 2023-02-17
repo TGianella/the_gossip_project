@@ -2,37 +2,39 @@
   <div class="overflow-scroll text-wrap">
     <%= comment.content %>
   </div>
-  <strong><%= comment.user.first_name %></strong>
-  <small>Le <%= comment.created_at.strftime('%d/%m/%y à %k:%M') %></small>
-  <% if logged_in? %>
-    <% if current_user == comment.user %>
-      <div class="btn-group">
-        <%= link_to "Editer", edit_comment_path(comment.id), class: "btn btn-sm btn-primary" %> 
-        <%= link_to "Supprimer", comment_path(comment.id), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-sm btn-danger" %>
+  <div class="container d-flex p-0 align-items-center">
+    <strong class="mx-1"><%= comment.user.first_name %></strong>
+    <small class="mx-1">Le <%= comment.created_at.strftime('%d/%m/%y à %k:%M') %></small>
+    <% if logged_in? %>
+      <% if current_user == comment.user %>
+        <div class="btn-group mx-1">
+          <%= link_to "Editer", edit_comment_path(comment.id), class: "btn btn-sm btn-primary" %> 
+          <%= link_to "Supprimer", comment_path(comment.id), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-sm btn-danger" %>
+        </div>
+      <% end %>
+      <div class="btn-group mx-1" role="groupe" aria-label="like and comment">
+        <%= render partial: 'like_buttons', locals: { object: comment, path: 'comment_likes_path', delete_path: 'comment_like_path' } %>
+        <span class="dropdown">
+          <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+            <i class="fa-solid fa-comments"></i>
+          </button>
+          <%= form_for [comment, Comment.new], :html => {:class => "dropdown-menu"} do |form|%>
+            <div class="mb-3">
+              <%= form.label 'Commenter' %><br>
+              <%= form.text_area :content, placeholder: "Ajoutez un commentaire" %>
+              <% @comment.errors.full_messages_for(:content).each do |message| %>
+                <div><%= message %></div>
+              <% end %>
+            </div>
+            <div>
+              <%= form.submit "Commenter" %>
+            </div>
+          <% end %>
+        </span>
       </div>
     <% end %>
-    <div class="btn-group" role="groupe" aria-label="like and comment">
-      <%= render partial: 'like_buttons', locals: { object: comment, path: 'comment_likes_path', delete_path: 'comment_like_path' } %>
-      <span class="dropdown">
-        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-          <i class="fa-solid fa-comments"></i>
-        </button>
-        <%= form_for [comment, Comment.new], :html => {:class => "dropdown-menu"} do |form|%>
-          <div class="mb-3">
-            <%= form.label 'Commenter' %><br>
-            <%= form.text_area :content, placeholder: "Ajoutez un commentaire" %>
-            <% @comment.errors.full_messages_for(:content).each do |message| %>
-              <div><%= message %></div>
-            <% end %>
-          </div>
-          <div>
-            <%= form.submit "Commenter" %>
-          </div>
-        <% end %>
-      </span>
-    </div>
-  <% end %>
-    
+  </div>  
+
   <ul>
     <%= render comment.comments %>
   </ul>

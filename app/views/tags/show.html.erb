@@ -1,2 +1,5 @@
-<h1><%= @tag.title %></h1>
+<div class="container d-inline-flex align-items-center">
+  <h1><%= @tag.title %></h1>
+  <span class="mx-3"><%= render partial: "like_buttons", locals: { object: @tag, path: "tag_likes_path", delete_path: "tag_like_path"} %></span>
+</div>
 <%= render partial: "gossips_lists", object: @tag %>

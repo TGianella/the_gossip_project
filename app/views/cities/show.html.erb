@@ -1,3 +1,6 @@
-<h1><%= @city.name %></h1>
+<div class="container d-inline-flex align-items-center p-0">
+  <h1><%= @city.name %></h1>
+  <span class="mx-3"><%= render partial: "like_buttons", locals: { object: @city, path: "city_likes_path", delete_path: "city_like_path"} %></span>
+</div>
 <%= "#{@city.users.count > 0 ? @city.users.count : "Aucun"} utilisateur.ice" + (@city.users.count > 1 ? "s" : '') %>
 <%= render partial: "gossips_lists", object: @city %>
