@@ -45,10 +45,11 @@ end
 20.times do |_|
   Gossip.create(title: Faker::Lorem.word,
                 content: Faker::Lorem.paragraph,
-                user: User.all.sample)
-  rand(1..4).times do |_i|
-    Gossip.last.tags << Tag.all.sample
-  end
+                user: User.all.sample,
+                tags: Tag.all.sample(rand(1..4)))
+  # rand(1..4).times do |_i|
+  #   Gossip.last.tags << Tag.all.sample
+  # end
   # Gossip.last.tags.uniq!
 end
 
