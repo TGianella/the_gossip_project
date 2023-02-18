@@ -2,7 +2,7 @@
   <div class="overflow-scroll text-wrap">
     <%= comment.content %>
   </div>
-  <div class="container d-flex p-0 align-items-center">
+  <div class="container d-flex p-0 my-1 align-items-center">
     <strong class="mx-1"><%= comment.user.first_name %></strong>
     <small class="mx-1">Le <%= comment.created_at.strftime('%d/%m/%y à %k:%M') %></small>
     <% if logged_in? %>
