@@ -4,11 +4,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
+    @user = User.new(user_params)
 
-    if user.save
-      log_in(user)
-      remember(user) if params[:user][:remember_user] == '1'
+    if @user.save
+      log_in(@user)
+      remember(@user) if params[:user][:remember_user] == '1'
       flash[:success] = 'Votre compte a bien été créé'
       redirect_to root_path
     else
