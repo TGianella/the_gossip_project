@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       redirect_to root_path
     else
       puts 'NOT LOGGED IN'
-      flash[:danger] = 'Invalid email/password combination'
+      flash[:alert] = 'Combinaison email/mot de passe invalide'
       render :new
     end
   end

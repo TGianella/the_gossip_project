@@ -1,60 +1,62 @@
-<h1 class="text-center mb-3">
-  <%= @gossip.title %>
-  <%= render partial: 'like_buttons', locals: { object: @gossip, path: "gossip_likes_path", delete_path: "gossip_like_path"} %>
-</h1>
+<div class="container d-flex flex-column align-items-stretch">
+  <h1 class="text-center mb-3">
+    <%= @gossip.title %>
+    <%= render partial: 'like_buttons', locals: { object: @gossip, path: "gossip_likes_path", delete_path: "gossip_like_path"} %>
+  </h1>
 
-<p class="mb-1">
-  <% @gossip.tags.sort_by(&:title).each do |tag| %>
-    <%= link_to tag.title, tag %>
+  <p class="mb-1">
+    <% @gossip.tags.sort_by(&:title).each do |tag| %>
+      <%= link_to tag.title, tag %>
+    <% end %>
+  <p> 
+    Par <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}", user_path(@gossip.user.id) %> 
+    (<%= link_to @gossip.user.city.name, city_path(@gossip.user.city.id) %>)
+  </p>
+  <div class="my-2"><%= @gossip.content %></div>
+  <div class="my-2"><small>  Posté le <%= @gossip.created_at.strftime('%d/%m/%y') %> à <%= @gossip.created_at.strftime('%k:%M') %></small></div>
+
+  <h5> Commentaires </h5>
+
+  <% if @gossip.comments.empty? %>
+    <div> Aucun commentaire... pour le moment !</div>
   <% end %>
-<p> 
-  Par <%= link_to "#{@gossip.user.first_name} #{@gossip.user.last_name}", user_path(@gossip.user.id) %> 
-  (<%= link_to @gossip.user.city.name, city_path(@gossip.user.city.id) %>)
-</p>
-<div class="my-2"><%= @gossip.content %></div>
-<div class="my-2"><small>  Posté le <%= @gossip.created_at.strftime('%d/%m/%y') %> à <%= @gossip.created_at.strftime('%k:%M') %></small></div>
 
-<h5> Commentaires </h5>
+  <ul>
+    <%= render @gossip.comments %>
+  </ul>
 
-<% if @gossip.comments.empty? %>
-  <div> Aucun commentaire... pour le moment !</div>
-<% end %>
+  <% if logged_in? %>
+    <%= form_for [@gossip, Comment.new] do |form|%>
+      <div class="mb-2">
+        <h6><%= form.label 'Commenter' %></h6>
+        <%= form.text_area :content, placeholder: "Qu'en pensez-vous ?" %>
+        <% @comment.errors.full_messages_for(:content).each do |message| %>
+          <div><%= message %></div>
+        <% end %>
+      </div>
 
-<ul>
-  <%= render @gossip.comments %>
-</ul>
+      <div>
+        <%= form.submit "Commenter", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  <% end %>
 
-<% if logged_in? %>
-  <%= form_for [@gossip, Comment.new] do |form|%>
-    <div class="mb-2">
-      <h6><%= form.label 'Commenter' %></h6>
-      <%= form.text_area :content, placeholder: "Qu'en pensez-vous ?" %>
-      <% @comment.errors.full_messages_for(:content).each do |message| %>
-        <div><%= message %></div>
-      <% end %>
-    </div>
+  <h5 class="mt-4">Likes</h5>
 
-    <div>
-      <%= form.submit "Commenter", class: "btn btn-primary" %>
+  <% unless @gossip.likes.empty? %>
+    <span>
+      Liké par :
+      <%= @gossip.likes.sort_by(&:created_at).map { |like| like.user.first_name }.join(' , ') %>
+    </span>
+  <% end %>
+
+    
+
+  <% if current_user == @gossip.user %>
+    <div class="mt-2">
+      <%= link_to "Editer le potin", edit_gossip_path %>
+      <%= link_to "Supprimer le potin", gossip_path(@gossip), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
     </div>
   <% end %>
-<% end %>
-
-<h5 class="mt-4">Likes</h5>
-
-<% unless @gossip.likes.empty? %>
-  <span>
-    Liké par :
-    <%= @gossip.likes.sort_by(&:created_at).map { |like| like.user.first_name }.join(' , ') %>
-  </span>
-<% end %>
-
-  
-
-<% if current_user == @gossip.user %>
-  <div class="mt-2">
-    <%= link_to "Editer le potin", edit_gossip_path %>
-    <%= link_to "Supprimer le potin", gossip_path(@gossip), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-  </div>
-<% end %>
+</div>
 

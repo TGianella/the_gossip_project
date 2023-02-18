@@ -75,7 +75,7 @@ class GossipsController < ApplicationController
   def authenticate_user
     return if current_user
 
-    flash[:danger] = 'Please log in'
+    flash[:alert] = 'Veuillez vous connecter'
     redirect_to new_session_path
   end
 
