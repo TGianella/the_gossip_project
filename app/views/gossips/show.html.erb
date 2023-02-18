@@ -46,7 +46,7 @@
   <% unless @gossip.likes.empty? %>
     <span>
       Liké par :
-      <%= @gossip.likes.sort_by(&:created_at).map { |like| like.user.first_name }.join(' , ') %>
+      <%= @gossip.likes.sort_by(&:created_at).map { |like| like.user.first_name }.join(', ') %>
     </span>
   <% end %>
 
