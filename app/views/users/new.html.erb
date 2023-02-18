@@ -44,6 +44,7 @@
   <div class="mb-3">
     <%= form.label :email %><br>
     <%= form.text_field :email %>
+    <div class="fw-light">Mieux vaut un faux email mais il faudra vous en souvenir pour vous reconnecter !</div>
     <% @user.errors.full_messages_for(:email).each do |message| %>
       <div><%= message %></div>
     <% end %>
@@ -71,7 +72,7 @@
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Créer le compte", class: "btn btn-primary mt-2" %>
   </div>
 <% end %>
 

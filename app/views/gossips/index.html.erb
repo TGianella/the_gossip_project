@@ -10,16 +10,22 @@
       <%unless gossip.nil?%>
         <div class="col py-1">
           <div class="card" >
+            <h6 class="card-header text-muted">
+              <a href="<%= gossip_path(gossip) %>" class="stretched-link text-decoration-none mb-1"><%= gossip.title %></a>
+              <div>Selon <%=gossip.user.first_name%>...</div>
+            </h6>
             <div class="card-body pb-2">
-              <h6 class="card-subtitle mb-1 text-muted"><a href="<%= gossip_path(gossip) %>">Selon <%=gossip.user.first_name%>...</a></h6>
-              <p class="card-text mb-1"><%= gossip.content %></p>
+              <p class="card-text text-truncate mb-1"><%= gossip.content %></p>
               <div class="btn-group my-1" role="group" aria-label="Like and comment">
                 <%= render partial: 'like_buttons', locals: { object: gossip, path: "gossip_likes_path", delete_path: "gossip_like_path" } %>
                 <%= render partial: 'comment_buttons', locals: { object: gossip } %>
               </div>
               <div>
-                <% gossip.tags.each do |tag| %>
+                <% gossip.tags[0..2].each do |tag| %>
                   <%= link_to tag.title, tag, class: "link-secondary" %>
+                <% end %>
+                <% if gossip.tags.count > 3 %>
+                  <%= "et #{gossip.tags.count - 3} autre" + (gossip.tags.count == 4 ? "" : "s") %>
                 <% end %>
               </div>
             </div>

@@ -1,18 +1,22 @@
 <h1>Se connecter</h1>
-<%= form_with url: sessions_path, scope: :session, local: true do |form| %>
+<div class="w-50">
+  <%= form_with url: sessions_path, scope: :session, local: true do |form| %>
 
-  <%= form.label :email %>
-  <%= form.email_field :email, class: 'form-control' %>
+    <%= form.label :email %>
+    <%= form.email_field :email, class: 'form-control' %>
 
-  <%= form.label :password %>
-  <%= form.password_field :password, class: 'form-control' %>
+    <%= form.label 'Mot de passe' %>
+    <%= form.password_field :password, class: 'form-control' %>
 
-  <div>
-    <%= form.label 'Se souvenir de moi' %>
-    <%= form.check_box :remember %>
-  </div>
+    <div class="mt-1">
+      <%= form.label 'Se souvenir de moi' %>
+      <%= form.check_box :remember %>
+    </div>
 
-  <%= form.submit "Log in", class: "mt-2 btn btn-primary" %>
-<% end %>
+    <div class="mt-1">
+      <%= form.submit "Se connecter", class: "btn btn-primary" %>
+      <%= link_to "Créer un compte", new_user_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
 
-<%= link_to "Créer un compte", new_user_path %>
