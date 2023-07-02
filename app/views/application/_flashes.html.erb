@@ -16,10 +16,10 @@
   </div>
 <% end %>
 
-<% if alert %>
-  <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-    <%= alert %>
-    <button type="button" class="close btn btn-sm btn-outline-warning ms-2" data-bs-dismiss="alert" aria-label="Close">
+<% if error %>
+  <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+    <%= error %>
+    <button type="button" class="close btn btn-sm btn-outline-danger ms-2" data-bs-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
