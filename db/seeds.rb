@@ -73,10 +73,12 @@ end
 
 10.times do |_|
   Like.create(user: User.all.sample,
-              gossip: Gossip.all.sample)
+              likeable_type: Gossip,
+              likeable_id: Gossip.all.sample.id)
 end
 
 10.times do |_|
   Like.create(user: User.all.sample,
-              comment: Comment.all.sample)
+              likeable_type: Comment,
+              likeable_id: Comment.all.sample.id)
 end
